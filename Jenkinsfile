@@ -23,10 +23,11 @@ pipeline {
         }
         stage('Plan') {
             steps {
-                sh """
-                 cd 01.vpc
-                 terraform plan
-                """
+                // sh """
+                //  cd 01.vpc
+                //  terraform plan
+                // """
+                sh "plan"
             }
         }
         stage('Deploy') {

@@ -21,21 +21,15 @@ pipeline {
                 """
             }
         }
-        stage('Plan') {
+        stage('Apply') {
             steps {
-                // sh """
-                //  cd 01.vpc
-                //  terraform plan
-                // """
-                sh "plan"
+                sh """
+                 cd 01.vpc
+                 terraform plan
+                """
             }
         }
         stage('Deploy') {
-             input {
-                message "Should we continue?"
-                ok "Yes, we should."
-                submitter "alice,bob"
-            }
             steps {
                sh """
                  cd 01.vpc

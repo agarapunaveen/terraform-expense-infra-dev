@@ -24,6 +24,11 @@ pipeline {
             }
         }
         stage('Apply') {
+            when{
+                expression{
+                    params.action == "apply"
+                }
+            }
             steps {
                sh """
                  cd 01.vpc
@@ -32,6 +37,11 @@ pipeline {
             }
         }
         stage('Deploy') {
+             when{
+                expression{
+                    params.action == "apply"
+                }
+            }
              input {
                 message "Should we continue?"
                 ok "Yes, we should."
@@ -41,6 +51,20 @@ pipeline {
                sh """
                  cd 01.vpc
                  terraform apply -auto-approve
+                """
+            }
+        }
+        
+        stage('Destroy') {
+             when{
+                expression{
+                    params.action == "destroy"
+                }
+            }
+            steps {
+               sh """
+                 cd 01.vpc
+                 terraform destroy -auto-approve
                 """
             }
         }

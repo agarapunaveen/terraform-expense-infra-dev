@@ -7,7 +7,9 @@ pipeline {
         timeout(time: 30, unit: 'MINUTES')
         disableConcurrentBuilds()
     }
-  
+   parameters {
+                    choice(name: 'action', choices: ['apply','destroy'], description: 'Who should I say hello to?')
+                }
     environment{
         Deploy_to = "production"
         greetings = "good mornint"

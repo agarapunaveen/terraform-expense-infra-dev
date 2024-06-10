@@ -23,18 +23,13 @@ pipeline {
         }
         stage('Apply') {
             steps {
-                sh """
-                 cd 01.vpc
-                 terraform plan
-                """
+                sh 'echo this is test'
+                sh 'sleep 10'
             }
         }
         stage('Deploy') {
             steps {
-               sh """
-                 cd 01.vpc
-                 terraform apply -auto-approve
-                """
+                sh 'echo this is deploys'
             }
         }
         
@@ -43,7 +38,7 @@ pipeline {
         post {
             always{
                 echo ' i will always say hello again'
-                deleteDir();
+                deleteDir()
             }
             success{
                 echo ' i will run the pipeline success'

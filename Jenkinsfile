@@ -21,15 +21,25 @@ pipeline {
                 """
             }
         }
-        stage('Apply') {
+        stage('Plan') {
             steps {
-                sh 'echo this is test'
-                sh 'sleep 10'
+                sh """
+                 cd 01.vpc
+                 terraform plan
+                """
             }
         }
         stage('Deploy') {
+             input {
+                message "Should we continue?"
+                ok "Yes, we should."
+                submitter "alice,bob"
+            }
             steps {
-                sh 'echo this is deploys'
+               sh """
+                 cd 01.vpc
+                 terraform apply -auto-approve
+                """
             }
         }
         

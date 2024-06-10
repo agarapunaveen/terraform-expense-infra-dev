@@ -23,8 +23,10 @@ pipeline {
         }
         stage('Apply') {
             steps {
-                sh 'echo this is test'
-                sh 'sleep 10'
+               sh """
+                 cd 01.vpc
+                 terraform plan 
+                """
             }
         }
         stage('Deploy') {
